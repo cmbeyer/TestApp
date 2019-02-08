@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.os.Bundle;
 import java.sql.*;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     private EditText Name;
     private EditText Password;
