@@ -12,7 +12,7 @@ import java.sql.*;
 
 public class MainActivity extends AppCompatActivity  {
 
-    
+
     private EditText Name;
     private EditText Password;
     private Button Login;
