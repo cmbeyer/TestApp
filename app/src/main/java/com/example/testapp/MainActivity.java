@@ -10,15 +10,15 @@ import android.widget.TextView;
 import android.os.Bundle;
 import java.sql.*;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
+
 
     private EditText Name;
     private EditText Password;
     private Button Login;
     private TextView Info;
     private int counter = 5;
-
-
+    private boolean check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,22 +38,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    
     private void connectDB(String userName, String userPassword){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con=DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/sonoo","root","root");
-                    //here sonoo is database name, root is username and password
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Connection con=DriverManager.getConnection("jdbc:mysql://69.142.191.249:3306/WebUsers","root","14752369Cb");
             Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from emp");
-            while(rs.next())
-                System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
-            con.close();
+
+            ResultSet rs=stmt.executeQuery("Select * from UserName where userName='"+userName+"' and pass='"+userPassword+"'");
+            if(rs.next())
+            {
+                check=true;
+            }
+            else
+                {
+                check = false;
+            }
+            validate();
         }catch(Exception e){ System.out.println(e);}
     }
 
-    private void validate(String userName, String userPassword){
-        if((userName.equalsIgnoreCase("Admin")) && (userPassword.equals("1234"))){
+    private void validate(){
+        if(check){
             Intent intent = new Intent(MainActivity.this, SecondActivity.class);
             startActivity(intent);
         }else{
